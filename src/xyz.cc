@@ -44,6 +44,7 @@ Maths::XYZController1::check(nlohmann::json& ret, nlohmann::json& config, nlohma
   /* check if the user has entered correct answer by inspecting ans
      if any check fails, simply return
    */
+  if (true) return; /* cause a failure */
 
   /* all checks passed... */
   ret["result"] = true;
