@@ -15,20 +15,21 @@ mathsc3c2sc6t1(nlohmann::json& confj, nlohmann::json& retj, bool debug)
 TEST_F_WRAP(R"(
   {
     "class": "Class-3",
-    "chapter": "Ch-2",
-    "id": "C-6",
+    "chapter": "Ch-0",
+    "id": "A-2",
     "enabled": true,
-    "title": "Add three or more numbers up to two digits each",
-    "ask": "",
-    "controller": "Maths::Addition-ThreeOrMoreMissing",
-    "model": "SubjectsMultiinputs",
-    "num_vars": 2,
-    "op_types": [
-      "+"
+    "title": "Even or odd: arithmetic rules",
+    "ask": "Identify result of arithmetic operation is even or odd",
+    "controller": "SubjectsMathsSelectsEvenodd",
+    "model": "SubjectsMathsEvenodd",
+    "qtypes": [
+      "yesno-arithmetic"
     ],
-    "is_missing_digits": false,
-    "is_missing_inputs": false,
+    "op_types": [
+      "+",
+      "-"
+    ],
     "min_digits": 1,
     "max_digits": 2
   }
-)", AdditionTest, mathsc3c2sc6t1);
+)", XyzController1YesNoTest, mathsc3c2sc6t1);
