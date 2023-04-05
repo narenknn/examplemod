@@ -22,6 +22,7 @@ TEST_F_WRAP(R"(
     "ask": "Identify result of arithmetic operation is even or odd",
     "controller": "SubjectsMathsSelectsEvenodd",
     "model": "SubjectsMathsEvenodd",
+    "view": "MultiInputsViewTest",
     "qtypes": [
       "yesno-arithmetic"
     ],
