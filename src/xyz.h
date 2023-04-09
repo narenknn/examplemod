@@ -1,4 +1,4 @@
-namespace Maths {
+namespace MathsU1 {
 
   class XYZ : public GenMod {
   public:

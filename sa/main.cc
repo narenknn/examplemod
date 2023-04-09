@@ -31,19 +31,21 @@ main(int argc, char **argv)
   run(R"(
   {
     "class": "Class-3",
-    "chapter": "Ch-2",
-    "id": "C-9",
+    "chapter": "Ch-0",
+    "id": "A-2",
     "enabled": true,
-    "title": "Addition: fill in the missing digits",
-    "ask": "",
-    "controller": "Maths::Addition-ThreeOrMoreMissing",
-    "model": "SubjectsMultiinputs",
-    "num_vars": 4,
-    "op_types": [
-      "+"
+    "title": "Even or odd: arithmetic rules",
+    "ask": "Identify result of arithmetic operation is even or odd",
+    "controller": "MathsU1::XYZ-SelectsEvenodd",
+    "model": "",
+    "view": "BtnChoiceViewTest",
+    "qtypes": [
+      "yesno-arithmetic"
     ],
-    "is_missing_digits": true,
-    "is_missing_inputs": false,
+    "op_types": [
+      "+",
+      "-"
+    ],
     "min_digits": 1,
     "max_digits": 2
   }

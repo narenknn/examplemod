@@ -20,9 +20,9 @@ TEST_F_WRAP(R"(
     "enabled": true,
     "title": "Even or odd: arithmetic rules",
     "ask": "Identify result of arithmetic operation is even or odd",
-    "controller": "SubjectsMathsSelectsEvenodd",
-    "model": "SubjectsMathsEvenodd",
-    "view": "MultiInputsViewTest",
+    "controller": "MathsU1::XYZ-SelectsEvenodd",
+    "model": "",
+    "view": "BtnChoiceViewTest",
     "qtypes": [
       "yesno-arithmetic"
     ],

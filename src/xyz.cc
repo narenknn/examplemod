@@ -12,9 +12,9 @@
 #endif
 #include "xyz.h"
 
-namespace Maths {
+namespace MathsU1 {
 
-  class XYZController1 : public Controller {
+  class SelectsEvenodd : public Controller {
   public:
     void gen(nlohmann::json& ret, std::shared_ptr<RandGenerator> rand, nlohmann::json& config);
     void check(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans);
@@ -22,22 +22,51 @@ namespace Maths {
 
 }
 
-Maths::XYZ::XYZ():
-  GenMod(__CLASS_NAME__)
+MathsU1::XYZ::XYZ():
+  ::GenMod(__CLASS_NAME__)
 {
-  controllers.emplace("XYZController1", std::make_unique<XYZController1>());
+  controllers.emplace("SelectsEvenodd", std::make_unique<SelectsEvenodd>());
 }
 
 void
-Maths::XYZController1::gen(nlohmann::json& ret, std::shared_ptr<RandGenerator> rand, nlohmann::json& config)
+MathsU1::SelectsEvenodd::gen(nlohmann::json& ret, std::shared_ptr<RandGenerator> rand, nlohmann::json& config)
 {
+  /* choose op */
+  std::string op;
+  do {
+    auto i = rand->get() % config["op_types"].size();
+    op = config["op_types"][i].get<std::string>();
+  } while (false);
+
+  auto min_digits = config["min_digits"].get<uint32_t>();
+  auto max_digits = config["max_digits"].get<uint32_t>();
+
+  auto _op1 = rand->get_digits(min_digits, max_digits);
+  auto _op2 = rand->get_digits(min_digits, max_digits);
+  auto op1 = (_op1 > _op2) ? _op1 : _op2;
+  auto op2 = (op1 == _op1) ? _op2 : _op1;
+  auto op1IsEven = (op1 & 1) ? false : true;
+  auto op2IsEven = (op2 & 1) ? false : true;
+  bool resultIsEven = false;
+  
+  /* compute result */
+  if (op == "+") {
+    resultIsEven = (op1IsEven == op2IsEven) ? true : false;
+  } else if (op == "-") {
+    resultIsEven = (op1IsEven == op2IsEven) ? true : false;
+  }
+
   /* populate ret with the question */
-  ret["text"] = std::string("Complete the <b>Given") + "</b> table:";
-  ret["inboxwidth"] = "50px";
+  ret["text"] = std::to_string(op1) + op + std::to_string(op2);
+  ret["btnchoice"] = nlohmann::json::array();
+  ret["btnchoice"].push_back("Even");
+  ret["btnchoice"].push_back("Odd");
+  ret["correct_ans"] = nlohmann::json::array();
+  ret["correct_ans"].push_back(resultIsEven ? 0 : 1);
 }
 
 void
-Maths::XYZController1::check(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans)
+MathsU1::SelectsEvenodd::check(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans)
 {
   ret["result"] = false;
 
@@ -50,7 +79,7 @@ Maths::XYZController1::check(nlohmann::json& ret, nlohmann::json& config, nlohma
   ret["result"] = true;
 }
 
-/* create global object */
-namespace {
-  Maths::XYZ xyz{};
+/* create object */
+namespace MathsU1 {
+  XYZ xyz{};
 }
