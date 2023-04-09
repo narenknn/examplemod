@@ -12,7 +12,7 @@
 #endif
 #include "xyz.h"
 
-namespace MathsU1 {
+namespace MathsU1AddSub {
 
   class SelectsEvenodd : public Controller {
   public:
@@ -22,14 +22,14 @@ namespace MathsU1 {
 
 }
 
-MathsU1::XYZ::XYZ():
+MathsU1AddSub::XYZ::XYZ():
   ::GenMod(__CLASS_NAME__)
 {
   controllers.emplace("SelectsEvenodd", std::make_unique<SelectsEvenodd>());
 }
 
 void
-MathsU1::SelectsEvenodd::gen(nlohmann::json& ret, std::shared_ptr<RandGenerator> rand, nlohmann::json& config)
+MathsU1AddSub::SelectsEvenodd::gen(nlohmann::json& ret, std::shared_ptr<RandGenerator> rand, nlohmann::json& config)
 {
   /* choose op */
   std::string op;
@@ -66,7 +66,7 @@ MathsU1::SelectsEvenodd::gen(nlohmann::json& ret, std::shared_ptr<RandGenerator>
 }
 
 void
-MathsU1::SelectsEvenodd::check(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans)
+MathsU1AddSub::SelectsEvenodd::check(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& question, nlohmann::json& ans)
 {
   ret["result"] = false;
 
@@ -80,6 +80,6 @@ MathsU1::SelectsEvenodd::check(nlohmann::json& ret, nlohmann::json& config, nloh
 }
 
 /* create object */
-namespace MathsU1 {
+namespace MathsU1AddSub {
   XYZ xyz{};
 }

@@ -1,6 +1,6 @@
-namespace MathsU1 {
+namespace MathsU1AddSub {
 
-  class XYZ : public GenMod {
+  class XYZ : public ::GenMod {
   public:
     XYZ();
   };
