@@ -10,7 +10,7 @@
   #include "top/genmain.h"
 # endif
 #endif
-#include "xyz.h"
+#include "addsub.h"
 
 namespace MathsU1AddSub {
 
