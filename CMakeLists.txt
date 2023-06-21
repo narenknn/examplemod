@@ -9,6 +9,9 @@ include(FetchContent)
 if (NOT DEFINED EMSCRIPTEN)
 
   # Boost
+  IF (WIN32)
+    set(BOOST_ROOT C:\\boost)
+  ENDIF()
   find_package( Boost REQUIRED COMPONENTS program_options regex )
   include_directories( ${Boost_INCLUDE_DIRS} )
   link_directories( ${Boost_LIBRARY_DIR} )
