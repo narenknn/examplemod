@@ -2,7 +2,7 @@
 ```bash
 mkdir build
 cd build
-cmake ..
+cmake .. / cmake -G "MinGW Makefiles" ..
 make
 ```
 
