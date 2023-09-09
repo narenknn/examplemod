@@ -6,10 +6,10 @@
 #include "nlohmann/json.hpp"
 #include "top/genmain.h"
 #include "top/main.h"
-#include "xyz.h"
+#include "addsub.h"
 
 void
-mathsc3c2sc6t1(nlohmann::json& confj, nlohmann::json& retj, bool debug)
+mathsc3_c2_sc6_t1(nlohmann::json& confj, nlohmann::json& retj, bool debug)
 {
 }
 TEST_F_WRAP(R"(
@@ -21,8 +21,8 @@ TEST_F_WRAP(R"(
     "title": "Even or odd: arithmetic rules",
     "ask": "Identify result of arithmetic operation is even or odd",
     "controller": "MathsU1AddSub::XYZ-SelectsEvenodd",
-    "model": "",
-    "view": "BtnChoiceViewTest",
+    "view": "",
+    "test": "BtnChoiceViewTest",
     "qtypes": [
       "yesno-arithmetic"
     ],
@@ -33,4 +33,4 @@ TEST_F_WRAP(R"(
     "min_digits": 1,
     "max_digits": 2
   }
-)", XyzController1YesNoTest, mathsc3c2sc6t1);
+)", XyzController1YesNoTest, mathsc3_c2_sc6_t1);

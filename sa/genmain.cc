@@ -32,7 +32,7 @@ genmain(std::string s_config)
   return comp->gen(cn_arr[1], config);
 
  genmain_return:
-  return "{text: 'Wrong setup, test was not generated!'}";
+  return "{'text': 'Wrong setup, test was not generated!'}";
 }
 
 std::string
@@ -54,7 +54,7 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
   return comp->check(cn_arr[1], config, question, ans);
 
  checkmain_return:
-  return "{text: 'Wrong setup, test was not generated!'}";
+  return "{'text': 'Wrong setup, test was not generated!'}";
 }
 
 
@@ -82,3 +82,21 @@ GenMod::check(const std::string cname, nlohmann::json& config, nlohmann::json& q
 
   return ret.dump();
 }
+
+namespace MathsChecks {
+
+  void
+  check_multiarray(nlohmann::json& ret, nlohmann::json& config, nlohmann::json& q, nlohmann::json& ans)
+  {
+    ret["result"] = true;
+    for(auto i = q["correct_ans"].size(); i; i--) {
+      for(auto j = q["correct_ans"][i-1].size(); j; j--) {
+        if (! q["correct_ans"][i-1][j-1].is_null())
+          if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+            ret["result"] = false;
+      }
+    }
+  }
+
+}
+
