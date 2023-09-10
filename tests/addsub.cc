@@ -31,6 +31,7 @@ TEST_F_WRAP(R"(
       "-"
     ],
     "min_digits": 1,
-    "max_digits": 2
+    "max_digits": 2,
+    "ans_optional": false
   }
 )", XyzController1YesNoTest, mathsc3_c2_sc6_t1);
