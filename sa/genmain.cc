@@ -1,5 +1,6 @@
 #include <string>
 #include <random>
+#include <stdexcept>
 
 #include <boost/algorithm/string.hpp>
 
@@ -32,7 +33,7 @@ genmain(std::string s_config)
   return comp->gen(cn_arr[1], config);
 
  genmain_return:
-  return "{'text': 'Wrong setup, test was not generated!'}";
+  return "{\"text\":\"Wrong setup, test was not generated!\"}";
 }
 
 std::string
@@ -54,9 +55,8 @@ checkmain(std::string s_config, std::string s_question, std::string s_ans)
   return comp->check(cn_arr[1], config, question, ans);
 
  checkmain_return:
-  return "{'text': 'Wrong setup, test was not generated!'}";
+  return "{\"text\":\"Wrong setup, check was not done!\"}";
 }
-
 
 std::string
 GenMod::gen(const std::string cname, nlohmann::json& config)
@@ -64,8 +64,18 @@ GenMod::gen(const std::string cname, nlohmann::json& config)
   /* */
   nlohmann::json ret;
 
-  if (controllers.find(cname) != controllers.end())
-    controllers[cname]->gen(ret, rand, config);
+  for (uint32_t ui=0; ui<4; ui++) {
+    try {
+      if (controllers.find(cname) != controllers.end())
+        controllers[cname]->gen(ret, rand, config);
+      break;
+    } catch(std::runtime_error& e) {
+      /*
+       * #include <stdexcept>
+       * throw std::runtime_error("randomize int-div");
+       */
+    }
+  }
 
   return ret.dump();
 }
@@ -92,7 +102,17 @@ namespace MathsChecks {
     for(auto i = q["correct_ans"].size(); i; i--) {
       for(auto j = q["correct_ans"][i-1].size(); j; j--) {
         if (! q["correct_ans"][i-1][j-1].is_null())
-          if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+          if (q["correct_ans"][i-1][j-1].is_string() && ans["ans"][i-1][j-1].is_string()) {
+            if (q["correct_ans"][i-1][j-1].get<std::string>() != ans["ans"][i-1][j-1].get<std::string>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_boolean() && ans["ans"][i-1][j-1].is_boolean()) {
+            if (q["correct_ans"][i-1][j-1].get<bool>() != ans["ans"][i-1][j-1].get<bool>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_number() && ans["ans"][i-1][j-1].is_number()) {
+            if (q["correct_ans"][i-1][j-1].get<float>() != ans["ans"][i-1][j-1].get<float>())
+              ret["result"] = false;
+          } else if (q["correct_ans"][i-1][j-1].is_null() && ans["ans"][i-1][j-1].is_null()) {
+          } else
             ret["result"] = false;
       }
     }
